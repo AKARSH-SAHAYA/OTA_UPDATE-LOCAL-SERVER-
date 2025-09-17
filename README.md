@@ -1,39 +1,71 @@
-# OTA Update with Local Flask Server for ESP32
+# OTA Update - Local Server (ESP32 + Flask)
 
-This project demonstrates how to perform **Over-The-Air (OTA) updates** on an ESP32 using a **local HTTP Flask server**.  
-The setup allows you to update ESP32 firmware by simply hosting a `.bin` file on your PC and letting the ESP32 download and flash it over Wi-Fi.
-
----
-
-## 🚀 How It Works
-1. A **Flask HTTP server** is run on your PC.  
-   - It serves the firmware file (`firmware.bin`) from the server folder.  
-2. The ESP32 and PC are connected to the **same 2.4 GHz Wi-Fi network**.  
-3. The ESP32 firmware is flashed once with OTA-capable code (included in this repo).  
-4. On boot:
-   - The ESP32 connects to Wi-Fi.  
-   - It requests the **firmware binary** from the Flask server via HTTP.  
-   - The new firmware is written into the **OTA partition**.  
-   - ESP32 automatically reboots and runs the new firmware.  
-5. Example firmware (`firmware.bin`) in this repo simply **blinks an LED** connected to **GPIO 22**.
+This project demonstrates how to perform **Over-The-Air (OTA) firmware updates** on an ESP32 using a **local HTTP server** built with Flask.  
+It allows you to serve the firmware (`.bin`) file from your PC over Wi-Fi, and the ESP32 can fetch and flash it automatically.
 
 ---
 
-## 📂 Repository Structure
-OTA_UPDATE-LOCAL-SERVER/
-│
-├── server/ # Flask HTTP server
-│ ├── firmware.bin # Example firmware (LED blink on GPIO 22)
-│ └── server.py # Flask server code
-│
-├── esp32_code/ # ESP-IDF OTA update code
-│
-└── README.md # Project documentation
+## 🚀 Features
+- Local **Flask HTTP server** to host the firmware file.  
+- ESP32 OTA update using **ESP-IDF OTA APIs**.  
+- Secure Wi-Fi connectivity (ensure ESP32 and server are on the same **2.4 GHz Wi-Fi**).  
+- Simple REST API endpoint for firmware delivery.  
+- Optional HTTPS support for secure transfer.  
+- Example **OTA client code** included.
 
+---
+# ⚙️ Requirements
+
+### On PC (Server)
+- Python 3.x  
+- Flask (`pip install flask`)  
+- OpenSSL (optional, for HTTPS certificate generation)
+
+### On ESP32
+- ESP-IDF installed & configured  
+- OTA client code (provided below)  
+- ESP32 connected to the same Wi-Fi as the PC server  
+
+---
+
+## 🖥️ Setting Up the Local Server
+
+1. Install Flask:
+   ```bash
+   pip install flask
+Place your compiled ESP32 firmware in the project folder and rename it as:
+
+python
+Copy code
+firmware.bin
+Run the Flask server:
+
+bash
+Copy code
+python server.py
 The server will start on:
 
+arduino
+Copy code
 http://<your-pc-ip>:5000/firmware
+Example:
 
+arduino
+Copy code
+http://192.168.1.100:5000/firmware
+⚠️ Make sure your PC and ESP32 are connected to the same 2.4 GHz Wi-Fi network.
 
+🌐 API Endpoints
+GET /firmware
+Fetches the latest firmware binary.
 
+Request (ESP32 makes this call):
 
+http
+Copy code
+GET http://<your-pc-ip>:5000/firmware
+Response:
+
+Status: 200 OK
+
+Body: firmware.bin file (binary)

@@ -28,28 +28,5 @@ It allows you to serve the firmware (`.bin`) file from your PC over Wi-Fi, and t
 
 ---
 
-## 🖥️ Setting Up the Local Server
 
-1. Install Flask:
-   ```bash
-   pip install flask
-Place your compiled ESP32 firmware in the project folder and rename it as:
-
-python
-Copy code
-firmware.bin
-Run the Flask server:
-
-bash
-Copy code
-python server.py
-The server will start on:
-http://your-pc-ip:5000/firmware
-Example:
-http://192.168.1.100:5000/firmware
-⚠️ Make sure your PC and ESP32 are connected to the same 2.4 GHz Wi-Fi network.
-
-🌐 API Endpoints
-GET /firmware
-Fetches the latest firmware binary.
 

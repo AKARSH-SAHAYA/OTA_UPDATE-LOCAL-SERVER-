@@ -47,11 +47,8 @@ The server will start on:
 
 arduino
 Copy code
-http://<your-pc-ip>:5000/firmware
+http://your-pc-ip:5000/firmware
 Example:
-
-arduino
-Copy code
 http://192.168.1.100:5000/firmware
 ⚠️ Make sure your PC and ESP32 are connected to the same 2.4 GHz Wi-Fi network.
 
@@ -59,13 +56,3 @@ http://192.168.1.100:5000/firmware
 GET /firmware
 Fetches the latest firmware binary.
 
-Request (ESP32 makes this call):
-
-http
-Copy code
-GET http://<your-pc-ip>:5000/firmware
-Response:
-
-Status: 200 OK
-
-Body: firmware.bin file (binary)

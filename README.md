@@ -44,9 +44,6 @@ bash
 Copy code
 python server.py
 The server will start on:
-
-arduino
-Copy code
 http://your-pc-ip:5000/firmware
 Example:
 http://192.168.1.100:5000/firmware
